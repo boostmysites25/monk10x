@@ -23,7 +23,7 @@ import { ReactComponent as webIcon4 } from "../assets/svg/services/UIUX Design.s
 export { logo };
 
 export const companyDetails = {
-  email: "xyz@example.com",
+  email: "support@monk10x.com",
   phone: "+918637811200",
   address:
     "Flat 302 Fresco Tower 3 Uniworld city AA-3 New Town,Opposite Rosedale Apartment North 24 Parganas PIN - 700160",
