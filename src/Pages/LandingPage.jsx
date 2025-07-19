@@ -356,7 +356,7 @@ const LandingPage = ({ page }) => {
         data={isWeb ? webDevelopmentServices : appDevelopmentServices}
       />
       <Portfolio page={page} />
-      <Testimonials />
+      <Testimonials serviceType={isWeb ? "web" : "app"} />
       <ContactForm />
     </div>
   );

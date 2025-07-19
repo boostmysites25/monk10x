@@ -19,24 +19,69 @@ const ContactForm2 = () => {
     setSubmitMessage("");
 
     try {
+      // Send email to Monk10x
       const payload = {
         name: "Monk10x",
         to: companyDetails.email,
         subject: data.subject,
-        body: `Full Name : ${data.fullName}\n\n
-        Email Address : ${data.email}\n\n
-        Subject : ${data.subject}\n\n
-        Message :\n${data.message}`,
+        body: `Full Name : ${data.fullName}\n
+Email Address : ${data.email}\n
+Subject : ${data.subject}\n
+Message :\n${data.message}`,
       };
 
-      // Replace with your actual API endpoint
       const response = await axios.post(
         "https://send-mail-redirect-boostmysites.vercel.app/send-email",
         payload
       );
 
       if (response.data.success) {
-        setSubmitMessage("Thank you! Your message has been sent successfully.");
+        // Send acknowledgment email to the user
+        const acknowledgmentPayload = {
+          name: "Monk10x",
+          to: data.email,
+          subject: "Thank you for contacting Monk10x - We've received your inquiry",
+          body: `Dear ${data.fullName},
+
+Thank you for reaching out to Monk10x! We have successfully received your inquiry and truly appreciate you taking the time to contact us.
+
+Here are the details of your submission:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📧 Subject: ${data.subject}
+📝 Your Message: ${data.message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What happens next?
+• Our team will review your inquiry carefully
+• We'll get back to you within 24 hours with a detailed response
+• If you have an urgent matter, feel free to call us at ${companyDetails.phone}
+
+About Monk10x:
+We specialize in cutting-edge technology solutions including web development, mobile app development, AI solutions, and software development. Our team is committed to delivering innovative solutions that drive your business forward.
+
+Need immediate assistance? Don't hesitate to reach out:
+📞 Phone: ${companyDetails.phone}
+📧 Email: ${companyDetails.email}
+🌐 Website: www.monk10x.com
+
+Thank you for choosing Monk10x. We look forward to helping you achieve your technology goals!
+
+Best regards,
+The Monk10x Team
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+This is an automated acknowledgment email. Please do not reply to this message.
+For any additional questions, please contact us directly at ${companyDetails.email}`,
+        };
+
+        await axios.post(
+          "https://send-mail-redirect-boostmysites.vercel.app/send-email",
+          acknowledgmentPayload
+        );
+
+        setSubmitMessage("Thank you! Your message has been sent successfully. You should receive an acknowledgment email shortly.");
         reset();
       }
     } catch (error) {

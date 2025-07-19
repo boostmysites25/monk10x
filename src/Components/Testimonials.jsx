@@ -1,8 +1,22 @@
-import { testimonials } from "../data/constant";
+import { webTestimonials, appTestimonials } from "../data/constant";
 import HrLine from "./HrLine";
 import { useKeenSlider } from "keen-slider/react";
 
-const Testimonials = () => {
+const Testimonials = ({ serviceType = "all" }) => {
+  // Get testimonials based on service type
+  const getTestimonials = () => {
+    switch (serviceType) {
+      case "web":
+        return webTestimonials;
+      case "app":
+        return appTestimonials;
+      default:
+        return [...webTestimonials, ...appTestimonials];
+    }
+  };
+
+  const testimonials = getTestimonials();
+
   const [sliderRef] = useKeenSlider(
     {
       loop: true,
@@ -56,7 +70,12 @@ const Testimonials = () => {
       >
         <p className="uppercase text-primary">testimonials</p>
         <h3 className="section-heading">
-          What Our Clients Say About Our Digital Services
+          {serviceType === "web" 
+            ? "What Our Clients Say About Our Web Development Services"
+            : serviceType === "app"
+            ? "What Our Clients Say About Our App Development Services"
+            : "What Our Clients Say About Our Digital Services"
+          }
         </h3>
         <HrLine />
       </div>

@@ -12,7 +12,7 @@ const ServiceDetails = () => {
 
   return (
     <>
-      <ServiceDetailsBanner banner={data.detailsPage.banner} title={title} />
+      <ServiceDetailsBanner banner={data.detailsPage.banner} title={data.title} />
       <div className="wrapper pt-[5rem] space-y-5">
         <h1 className="section-heading">{data.title}</h1>
         <img

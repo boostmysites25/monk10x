@@ -31,7 +31,8 @@ export const companyDetails = {
   instagram: "https://www.instagram.com/monk10x.ai?igsh=MzNrbXVpZ3p2bXg2",
 };
 
-export const testimonials = [
+// Web Development Testimonials
+export const webTestimonials = [
   {
     name: "Arjun Mehta",
     designation: "CEO, Tech Innovators",
@@ -40,27 +41,76 @@ export const testimonials = [
       "The team at Monk10x delivered a tailored web development solution that exceeded our expectations. Their attention to detail and innovative approach helped us create a highly engaging website. They were professional, met all deadlines, and provided exceptional post-launch support. We're thrilled with the results and how it positively impacted our online presence.",
   },
   {
-    name: "Priya Sharma",
-    designation: "Product Manager, Appify Co.",
-    image: require("../assets/images/testimonial/1.jpg"),
+    name: "Emma Johnson",
+    designation: "VP of Operations, DigitalCorp UK",
+    image: require("../assets/images/testimonial/5.webp"),
     review:
-      "Working with Monk10x on our app development was a fantastic experience. They delivered a user-friendly app on time that exceeded our expectations. The team was highly responsive and flexible, and the final product was polished and ready for launch. We couldn't be more pleased with the outcome.",
+      "Monk10x transformed our e-commerce website with exceptional web development services. Their strategic approach and deep technical expertise helped us create a powerful online presence that drives sales. The team's professionalism and commitment to delivering results on time was outstanding. Our online revenue has increased by 45% since launching the new website.",
   },
   {
-    name: "Ravi Patel",
-    designation: "Founder, AI Ventures",
-    image: require("../assets/images/testimonial/3.jpg"),
+    name: "Sarah Mitchell",
+    designation: "Director of Innovation, GlobalTech Australia",
+    image: require("../assets/images/testimonial/7.webp"),
     review:
-      "Monk10x AI development team delivered a cutting-edge solution that significantly improved our efficiency. Their expertise in AI and understanding of our business needs helped us automate key processes, providing valuable insights. The solution has been a major boost to our operations.",
+      "We partnered with Monk10x for our e-commerce platform development, and the results have been phenomenal. Their team delivered a robust, scalable solution that has boosted our online sales by 65%. The platform's performance and user-friendly interface have significantly enhanced our customer satisfaction. Monk10x truly understands modern e-commerce needs.",
   },
   {
     name: "Arun Nair",
     designation: "CTO, CodeWorks Inc.",
     image: require("../assets/images/testimonial/4.jpg"),
     review:
-      "The software development services from Monk10x were top-notch. They understood our requirements perfectly and delivered a high-quality, scalable solution on time. Their team was professional, responsive, and ensured that the product met all our expectations. We are very satisfied with the result.",
+      "The web development services from Monk10x were top-notch. They understood our requirements perfectly and delivered a high-quality, scalable website on time. Their team was professional, responsive, and ensured that the final product exceeded all our expectations. Our website now perfectly represents our brand and drives meaningful conversions.",
+  },
+  {
+    name: "Robert Chen",
+    designation: "Marketing Director, StartupFlow",
+    image: require("../assets/images/testimonial/3.jpg"),
+    review:
+      "Monk10x created an outstanding landing page that dramatically improved our conversion rates. Their web design expertise and attention to user experience details resulted in a 78% increase in lead generation. The responsive design works flawlessly across all devices, and the loading speed is exceptional.",
   },
 ];
+
+// App Development Testimonials
+export const appTestimonials = [
+  {
+    name: "Priya Sharma",
+    designation: "Product Manager, Appify Co.",
+    image: require("../assets/images/testimonial/1.jpg"),
+    review:
+      "Working with Monk10x on our mobile app development was a fantastic experience. They delivered a user-friendly iOS and Android app that exceeded our expectations. The team was highly responsive and flexible, and the final product was polished and ready for launch. We couldn't be more pleased with the outcome.",
+  },
+  {
+    name: "Marco Rossi",
+    designation: "CTO, TechSolutions Italia",
+    image: require("../assets/images/testimonial/6.webp"),
+    review:
+      "The hybrid app development service provided by Monk10x exceeded all our expectations. They created a seamless cross-platform solution that works flawlessly on both iOS and Android. Their attention to user experience and technical excellence is remarkable. The app has received excellent feedback from our clients across Europe.",
+  },
+  {
+    name: "Vikram Singh",
+    designation: "Founder, MediCare Plus",
+    image: require("../assets/images/testimonial/3.jpg"),
+    review:
+      "Monk10x developed an AI-powered healthcare mobile app that revolutionized our patient management system. Their expertise in mobile development and understanding of healthcare workflows helped us create an app that streamlines appointments and provides real-time health monitoring. The app has improved our patient satisfaction by 70%.",
+  },
+  {
+    name: "Jennifer Williams",
+    designation: "CEO, HealthTech Solutions",
+    image: require("../assets/images/testimonial/5.webp"),
+    review:
+      "The Flutter app development service from Monk10x was exceptional. They built a cross-platform healthcare app that serves thousands of users daily. The app's performance is outstanding, and the UI/UX design is intuitive and user-friendly. Our patient engagement has increased by 60% since the app launch.",
+  },
+  {
+    name: "Alex Thompson",
+    designation: "Co-founder, ShopEasy",
+    image: require("../assets/images/testimonial/7.webp"),
+    review:
+      "Monk10x developed our e-commerce mobile app that has transformed our retail business. The iOS and Android apps they created are fast, secure, and feature-rich. The seamless shopping experience and integrated payment system have led to a 50% increase in mobile sales. Their ongoing support has been excellent.",
+  },
+];
+
+// Combined testimonials for backward compatibility
+export const testimonials = [...webTestimonials, ...appTestimonials];
 
 // web development services
 export const webDevelopmentServices = [
