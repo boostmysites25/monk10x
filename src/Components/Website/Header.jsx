@@ -13,8 +13,7 @@ export const websiteLinks = [
   { id: 1, name: "Home", path: "/" },
   { id: 2, name: "About Us", path: "/about-us" },
   { id: 3, name: "Services", path: "/services" },
-  { id: 4, name: "Blogs", path: "/blogs" },
-  //   { id: 5, name: "Contact Us", path: "/contact-us" },
+  // { id: 4, name: "Blogs", path: "/blogs" },
 ];
 
 const Header = () => {
