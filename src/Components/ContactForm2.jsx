@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { companyDetails } from "../data/constant";
 
 const ContactForm2 = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -22,7 +24,7 @@ const ContactForm2 = () => {
       // Send email to Monk10x
       const payload = {
         name: "Monk10x",
-        to: companyDetails.email,
+        to: companyDetails.sendLeadsMail,
         subject: data.subject,
         body: `Full Name : ${data.fullName}\n
 Email Address : ${data.email}\n
@@ -40,7 +42,8 @@ Message :\n${data.message}`,
         const acknowledgmentPayload = {
           name: "Monk10x",
           to: data.email,
-          subject: "Thank you for contacting Monk10x - We've received your inquiry",
+          subject:
+            "Thank you for contacting Monk10x - We've received your inquiry",
           body: `Dear ${data.fullName},
 
 Thank you for reaching out to Monk10x! We have successfully received your inquiry and truly appreciate you taking the time to contact us.
@@ -81,8 +84,8 @@ For any additional questions, please contact us directly at ${companyDetails.ema
           acknowledgmentPayload
         );
 
-        setSubmitMessage("Thank you! Your message has been sent successfully. You should receive an acknowledgment email shortly.");
-        reset();
+        // Redirect to thank you page after successful submission
+        navigate("/thank-you");
       }
     } catch (error) {
       setSubmitMessage(

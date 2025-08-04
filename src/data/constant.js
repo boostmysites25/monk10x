@@ -24,6 +24,7 @@ export { logo };
 
 export const companyDetails = {
   email: "support@monk10x.com",
+  sendLeadsMail: "monk10xai@gmail.com",
   phone: "+918637811200",
   address:
     "Flat 302 Fresco Tower 3 Uniworld city AA-3 New Town,Opposite Rosedale Apartment North 24 Parganas PIN - 700160",

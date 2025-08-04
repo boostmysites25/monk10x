@@ -4,12 +4,13 @@ import axios from "axios";
 import HrLine from "./HrLine";
 import { TiArrowBack } from "react-icons/ti";
 import { ImPhone } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { companyDetails } from "../data/constant";
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,7 +27,7 @@ const ContactForm = () => {
       // Send email to Monk10x
       const payload = {
         name: "Monk10x",
-        to: companyDetails.email,
+        to: companyDetails.sendLeadsMail,
         subject: data.subject,
         body: `Full Name : ${data.fullName}\n
 Email Address : ${data.email}\n
@@ -86,10 +87,8 @@ For any additional questions, please contact us directly at ${companyDetails.ema
           acknowledgmentPayload
         );
 
-        setSubmitMessage(
-          "Thank you! Your message has been sent successfully. You should receive an acknowledgment email shortly."
-        );
-        reset();
+        // Redirect to thank you page after successful submission
+        navigate("/thank-you");
       }
     } catch (error) {
       setSubmitMessage(
