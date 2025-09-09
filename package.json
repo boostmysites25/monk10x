@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.87.1",
     "@tawk.to/tawk-messenger-react": "^2.0.2",
     "aos": "^2.3.4",
     "axios": "^1.10.0",

@@ -1,67 +1,104 @@
 import React from "react";
 import PageBanner from "../Components/Website/PageBanner";
 import banner from "../assets/images/banners/blogs.webp";
-import { blogs } from "../Components/Website/BlogsSection";
 import BlogItem from "../Components/Website/BlogItem";
 import HrLine from "../Components/HrLine";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useBlogBySlug } from "../hooks/useBlogs";
 
 const BlogDetails = () => {
+  const { title } = useParams();
+
+  // Fetch blog by slug using TanStack Query
+  const {
+    data: blogData,
+    isLoading: blogLoading,
+    error: blogError,
+  } = useBlogBySlug(title);
+
+  // Use blog data from API
+  const blog = blogData?.blog;
+
+  if (blogLoading) {
+    return (
+      <>
+        <PageBanner banner={banner} title="Blogs" />
+        <div className="wrapper pt-[5rem] flex justify-center items-center py-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </>
+    );
+  }
+
+  if (blogError || !blog) {
+    return (
+      <>
+        <PageBanner banner={banner} title="Blogs" />
+        <div className="wrapper pt-[5rem] text-center py-16">
+          <h2 className="section-heading mb-4">Blog Not Found</h2>
+          <p className="text-gray-600 mb-6">
+            The blog you're looking for doesn't exist.
+          </p>
+          <Link to="/blogs" className="primary-btn">
+            Back to Blogs
+          </Link>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <PageBanner banner={banner} title="Blogs" />
       <div className="wrapper pt-[5rem]">
         <img
-          src={blogs[0]}
-          alt="Blog"
+          src={blog.imageUrl}
+          alt={blog.imageAlt || blog.title}
           className="md:aspect-video lg:aspect-[13/6] object-cover rounded-lg"
         />
         <div className="pt-[2rem] space-y-4">
-          <h2 className="section-heading">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          </h2>
+          <h2 className="section-heading">{blog.title}</h2>
           <div className="flex gap-4 justify-between">
             <HrLine />
             <HrLine />
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
-            sit. Ut aliquid at minus labore cupiditate, tempore cum hic
-            incidunt, delectus dolore pariatur veniam soluta culpa nostrum quia
-            perferendis placeat! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Dolor velit explicabo, reiciendis dolorem
-            veritatis recusandae ab odit ipsam sapiente blanditiis perferendis a
-            optio officiis asperiores obcaecati ullam officia saepe qui! Alias
-            minus repellat nemo, impedit eius, sunt consequatur hic perspiciatis
-            asperiores placeat esse neque ratione expedita nobis iure quam
-            veniam accusamus, cumque eaque aperiam maxime. Similique illum
-            corrupti rerum doloribus? Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Tempore provident iure mollitia in fuga at eveniet
-            quos, ea, unde similique expedita, reiciendis ullam eius ipsam sequi
-            dicta? Accusantium, deserunt dicta. Consequatur rerum incidunt
-            excepturi modi eos dolores. Consequatur porro magnam optio. Qui eius
-            consequatur, earum quam, accusantium possimus sunt suscipit, alias
-            voluptates atque quo porro vitae ipsa praesentium velit neque!
-            Cupiditate, reiciendis veritatis consequuntur debitis dolor harum
-            possimus modi obcaecati pariatur asperiores porro sed.
-          </p>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4 text-sm text-gray-600">
+              <span>By {blog.author?.name || blog.authorId?.name}</span>
+              <span>•</span>
+              <span>{new Date(blog.publishDate).toLocaleDateString()}</span>
+              {blog.categoryId && (
+                <>
+                  <span>•</span>
+                  <span className="bg-primary/10 text-primary px-2 py-1 rounded">
+                    {blog.categoryId.name}
+                  </span>
+                </>
+              )}
+            </div>
+            {blog.tags && blog.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {blog.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="prose max-w-none">
+            <div className="reset-html" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+          </div>
         </div>
         <hr className="border-primary/30 my-[3rem]" />
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h3 className="section-heading">Recent Blogs</h3>
-            <HrLine />
-          </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {blogs.map((item) => (
-              <BlogItem key={item} item={item} />
-            ))}
-          </div>
-          <div className="pt-[2rem]">
-            <Link to="/blogs" className="w-fit mx-auto primary-btn">
-              Explore More
-            </Link>
-          </div>
+
+        <div className="pt-[2rem]">
+          <Link to="/blogs" className="w-fit mx-auto primary-btn">
+            Explore More
+          </Link>
         </div>
       </div>
     </>

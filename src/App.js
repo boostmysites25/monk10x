@@ -8,6 +8,7 @@ import { LoadingSpinner } from "./Components/LoadingSpinner";
 import ScrollToTop from "./Components/ScrollToTop";
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import WhatsAppButton from "./Components/WhatsAppButton";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -16,8 +17,8 @@ const Home = lazy(() => import("./Pages/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs"));
 const OurServices = lazy(() => import("./Pages/OurServices"));
 const ServiceDetails = lazy(() => import("./Pages/ServiceDetails"));
-// const Blogs = lazy(() => import("./Pages/Blogs"));
-// const BlogDetails = lazy(() => import("./Pages/BlogDetails"));
+const Blogs = lazy(() => import("./Pages/Blogs"));
+const BlogDetails = lazy(() => import("./Pages/BlogDetails"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
 const LandingPage = lazy(() => import("./Pages/LandingPage"));
 const ThankYou = lazy(() => import("./Pages/ThankYou"));
@@ -29,9 +30,20 @@ AOS.init({
   offset: -70,
 });
 
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function App() {
   return (
-    <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
       <ScrollToTopButton />
       <ScrollToTop />
       <WhatsAppButton />
@@ -48,8 +60,8 @@ function App() {
               <Route path="about-us" element={<AboutUs />} />
               <Route path="services" element={<OurServices />} />
               <Route path="services/:title" element={<ServiceDetails />} />
-              {/* <Route path="blogs" element={<Blogs />} /> */}
-              {/* <Route path="blogs/:title" element={<BlogDetails />} /> */}
+              <Route path="blogs" element={<Blogs />} />
+              <Route path="blogs/:title" element={<BlogDetails />} />
               <Route path="contact-us" element={<ContactUs />} />
             </Route>
 
@@ -69,7 +81,8 @@ function App() {
           </Routes>
         </Suspense>
       </SpinnerContextProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 

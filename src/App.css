@@ -8,6 +8,10 @@
   font-family: "Josefin Sans", serif;
 }
 
+.reset-html * {
+  all: revert;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -96,7 +100,7 @@ html {
   bottom: 0;
   margin: auto;
   border: 3px solid;
-  border-color: transparent #0462A0 #0462A0;
+  border-color: transparent #0462a0 #0462a0;
   width: 24px;
   height: 24px;
   border-radius: 50%;

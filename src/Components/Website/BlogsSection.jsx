@@ -3,15 +3,16 @@ import { useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import HrLine from "../HrLine";
 import BlogItem from "./BlogItem";
-
-export const blogs = [
-  "https://thefusioneer.com/wp-content/uploads/2023/11/5-AI-Advancements-to-Expect-in-the-Next-10-Years-scaled.jpeg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdiVKkCOalScNbSItxmwr6ftdO9CvmsAZ5Lg&s",
-  "https://d3g5ywftkpzr0e.cloudfront.net/wp-content/uploads/2023/07/13220529/Artificial-Intelligence-in-Indonesia-The-current-state-and-its-opportunities.jpeg",
-];
+import { useFeaturedBlogs } from "../../hooks/useBlogs";
 
 const BlogsSection = () => {
   const [loaded, setLoaded] = useState(false);
+
+  // Fetch featured blogs using TanStack Query
+  const { data: featuredBlogsData, isLoading, error } = useFeaturedBlogs();
+
+  // Use featured blogs from API
+  const blogs = featuredBlogsData?.blogs || [];
   const [sliderRef, instanceRef] = useKeenSlider(
     {
       loop: true,
@@ -69,6 +70,52 @@ const BlogsSection = () => {
       },
     ]
   );
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <section className="pt-[4rem] wrapper">
+        <div
+          data-aos="fade-up"
+          className="space-y-4 flex flex-col sm:items-center sm:text-center max-w-2xl mx-auto"
+        >
+          <p className="uppercase text-primary">latest blogs</p>
+          <h3 className="section-heading">
+            Stay Ahead with Our Latest AI Research and Trends
+          </h3>
+          <HrLine />
+        </div>
+        <div className="flex justify-center items-center py-16">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <section className="pt-[4rem] wrapper">
+        <div
+          data-aos="fade-up"
+          className="space-y-4 flex flex-col sm:items-center sm:text-center max-w-2xl mx-auto"
+        >
+          <p className="uppercase text-primary">latest blogs</p>
+          <h3 className="section-heading">
+            Stay Ahead with Our Latest AI Research and Trends
+          </h3>
+          <HrLine />
+        </div>
+        <div className="text-center py-16">
+          <p className="text-gray-500">Unable to load blogs at the moment.</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Don't render if no blogs
+  if (blogs.length === 0) return null;
+
   return (
     <section className="pt-[4rem] wrapper">
       <div
@@ -82,8 +129,8 @@ const BlogsSection = () => {
         <HrLine />
       </div>
       <div data-aos="fade-up" ref={sliderRef} className="keen-slider mt-7">
-        {blogs.map((item) => (
-          <BlogItem key={item} item={item} />
+        {blogs.map((blog) => (
+          <BlogItem key={blog._id || blog} blog={blog} />
         ))}
       </div>
       {loaded && instanceRef.current && (
